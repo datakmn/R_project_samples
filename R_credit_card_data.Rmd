@@ -6,24 +6,80 @@ output:
     vertical_layout: fill
 ---
 
+##The aim of this R project is to build a classifier that can detect credit card fraudulent transactions. We will use a variety of machine learning algorithms that will be able to discern fraudulent from non-fraudulent one. By the end of this machine learning project, you will learn how to implement machine learning algorithms to perform classification.
+
+
 ```{r setup, include=FALSE}
 library(flexdashboard)
 library(ranger)
 library(caret)
 library(data.table)
+library(janitor)
 ```
 
 
+##1. Importing the Datasets
+
+##We are importing the datasets that contain transactions made by credit cards + use"janitor" to clean up columns' names.
+
+```{r}
+read.csv("creditcard.csv") %>% 
+janitor::clean_names() -> data
+```
 
 
+##2. Data Exploration
+#In this section of the fraud detection ML project, we will explore the data that is contained in the creditcard_data dataframe. We will proceed by displaying the creditcard_data using the head() function as well as the tail() function. We will then proceed to explore the other components of this dataframe –
 
 
+#checking the numbers of rows and columns in the dataset.
+```{r}
+dim(data)
+
+```
+
+#checking the first 6 rows to have an overview.
+```{r}
+head(data)
+```
+
+#chekcing the last part for the dataset.
+```{r}
+tail(data)
+```
+#exploring some impoartant data.
+```{r}
+table(data$class)
+```
+
+#exploring average data info.
+```{r}
+summary(data$amount)
+```
+
+#exploring the cloumns names.
+```{r}
+names(data)
+```
+
+#convertign variables.
+```{r}
+var(data$amount)
+```
+#checking the stnadard deviation of a vector column.
+```{r}
+sd(data$amount)
+```
+
+##3. Data Manipulation
+#In this section of the R data science project, we will scale our data using the scale() function. We will apply this to the amount component of our creditcard_data amount. Scaling is also known as feature standardization. With the help of scaling, the data is structured according to a specified range. Therefore, there are no extreme values in our dataset that might interfere with the functioning of our model. We will carry this out as follows:
 
 
-
-
-
-
+```{r}
+data$amount = scale(data$amount)
+new_data = data [,-c(1)]
+head(new_data)
+```
 
 
 
